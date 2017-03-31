@@ -51,8 +51,9 @@ export class Auth {
                 if (token) {
                     this.token = token;
                     // show jwt object
-                    console.log( this.jwtHelper.decodeToken(token) );
-                    this.storage.set('id_token', JSON.stringify({ email: email, token: token }));
+                    //console.log( this.jwtHelper.decodeToken(token) );
+                    localStorage.setItem( 'id_token', token );
+                    //this.storage.set('id_token', JSON.stringify({ email: email, token: token }));
                     return true;
                 }
                 return false;
@@ -61,7 +62,8 @@ export class Auth {
 
     logout(): void {
         this.token = null;
-        this.storage.remove('id_token');
+        //this.storage.remove('id_token');
+        localStorage.removeItem('id_token');
     }
 
   public authenticated() {
