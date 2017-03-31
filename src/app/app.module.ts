@@ -6,9 +6,14 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
-import { AuthService } from '../providers/auth-service';
+import { Auth } from '../providers/auth';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {Http} from '@angular/http';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
+import { IonicStorageModule } from '@ionic/storage';
+
+import { HomeService } from '../pages/home/home.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,8 +40,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    AuthService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Auth,
+    HomeService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: AuthHttp, 
+      useFactory: (http) => {
+        return new AuthHttp(new AuthConfig({
+          tokenName : 'id_token'
+        }), http);
+      }, 
+      deps: [Http]
+    }
   ]
 })
 export class AppModule {}

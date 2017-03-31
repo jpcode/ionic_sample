@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { AuthService } from '../../providers/auth-service';
+import { Auth } from '../../providers/auth';
+import {HomeService} from './home.service';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -10,11 +12,22 @@ import { AuthService } from '../../providers/auth-service';
 export class HomePage  implements OnInit {
   nombre : string;
 
-  constructor(public navCtrl: NavController, private authService : AuthService ) {}
+  constructor(public navCtrl: NavController, 
+  			  private homeService : HomeService,
+  			  private auth : Auth 
+  			 ) {
+  	this.homeService = homeService;
+  	this.auth = auth;
+  }
+
+  logout(){
+  	this.auth.logout();
+  	this.navCtrl.setRoot(LoginPage);
+  }
 
   ngOnInit() {
-     var user = this.authService.getUser();
-     this.nombre = user.nombre;
-     console.log( 'user: ', user );
+     this.homeService.getQuestions().subscribe(function( resp ){
+     		console.log( resp );
+     })
   }
 }

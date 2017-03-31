@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { AuthService } from '../../providers/auth-service';
+import { Auth } from '../../providers/auth';
 import { TabsPage } from '../tabs/tabs';
 
 /*
@@ -14,16 +14,19 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  
-  loading: Loading;
-  user = {email: '', password: ''};
 
+  authType: string = "login";
+
+  loading: Loading;
+  user = {codigo: '', password: ''};
 
   constructor(	public navCtrl: NavController, 
   				private alertCtrl: AlertController, 
   				private loadingCtrl: LoadingController, 
-  				private auth: AuthService, 
-  				public navParams: NavParams) {}
+  				private auth: Auth, 
+  				public navParams: NavParams) {
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -32,24 +35,23 @@ export class LoginPage {
   public login() {
     this.showLoading();
     var user = this.user;
-    this.auth.login( user.email, user.password ).subscribe( data  => {
-      if ( data ) {
-        setTimeout(() => {
-        	this.loading.dismiss();
-        	this.navCtrl.setRoot(TabsPage)
-        });
-      } else {
-        this.showError("Código o contraseña incorrecto");
-      }
+    this.auth.login( "coco@fitco.com.pe", "123" ).subscribe( success  => {
+      if ( success ){
+          this.loading.dismiss();
+          this.navCtrl.setRoot(TabsPage);
+      }else{
+          this.showError("Ups! Al parecer escribiste mal tu codigo");
+      }  
     },
     error => {
       this.showError(error);
     });
+   
   }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Un momento...'
     });
     this.loading.present();
   }

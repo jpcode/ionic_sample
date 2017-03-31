@@ -7,8 +7,8 @@
 <ion-content class="login-content" padding>
   <ion-row class="logo-row">
     <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="https://sg.com.mx/sites/default/files/styles/teaser/public/images/logo_laboratoria-07_(2).png?itok=YyZOuaXx"/>
+    <ion-col>
+      <img src="assets/img/logo.png">
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
@@ -19,12 +19,9 @@
           <ion-list inset>
             
             <ion-item>
-              <ion-input type="text" placeholder="Ingresa tu código" name="email" [(ngModel)]="user.email" required></ion-input>
+              <ion-input type="text" placeholder="Ingresa tu código" name="codigo" [(ngModel)]="user.codigo" required></ion-input>
             </ion-item>
             
-            <ion-item>
-              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required></ion-input>
-            </ion-item>
             
           </ion-list>
         </ion-col>
@@ -32,7 +29,7 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit">Login</button>
+          <button ion-button class="submit-btn" full type="submit"> Asisti </button>
         </ion-col>
       </ion-row>
       
