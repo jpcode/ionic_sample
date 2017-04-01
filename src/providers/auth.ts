@@ -62,7 +62,6 @@ export class Auth {
 
     logout(): void {
         this.token = null;
-        //this.storage.remove('id_token');
         localStorage.removeItem('id_token');
     }
 

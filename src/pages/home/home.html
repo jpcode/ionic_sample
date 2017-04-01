@@ -1,15 +1,11 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title> </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <h2>Welcome! {{ nombre }} </h2>
-  <p>
-      Your attendance was saved correctly.
-  </p>
-
-  <button block (click)="logout()">Logout</button>
-  
+<ion-navbar *navbar>
+  <ion-title>Work</ion-title>
+</ion-navbar>
+<ion-content padding class="tools">
+  <div *ngIf="auth.authenticated()">
+    <div padding>
+      <h1>Welcome.</h1>
+      <button block (click)="logout()">Logout</button>
+    </div>  
+  </div>
 </ion-content>

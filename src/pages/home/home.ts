@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import {HomeService} from './home.service';
 import { LoginPage } from '../login/login';
+import {App} from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -11,18 +12,20 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage  implements OnInit {
   nombre : string;
-
+  app : App;
   constructor(public navCtrl: NavController, 
   			  private homeService : HomeService,
-  			  private auth : Auth 
+  			  private auth : Auth,
+          app : App
   			 ) {
   	this.homeService = homeService;
   	this.auth = auth;
+    this.app = app;
   }
 
   logout(){
   	this.auth.logout();
-  	this.navCtrl.setRoot(LoginPage);
+  	this.app.getRootNav().setRoot(LoginPage);
   }
 
   ngOnInit() {
